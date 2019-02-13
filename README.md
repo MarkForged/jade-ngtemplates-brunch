@@ -55,6 +55,7 @@ Module description is an *Object* which consists of:
 * **name**: *(String)* Name of the angular module which will contain generated templates. Default is `partials`.
 * **pattern**: *(RegExp)*. Pattern used to match source files names. Default is `/^app[\/\\]/`.
 * **url**: *(Function)* Takes path of the source file and returns URL (cache ID) where template will be available. See above for the default value.
+* **moduleWrapInner**: *(Boolean)* Wrap around $templateCache.put() instead of around the entire compiled file. Default is false.
 
 Note that all omitted options in module object description will be filled up with defaults.
 

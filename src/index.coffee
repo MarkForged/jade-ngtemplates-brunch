@@ -63,14 +63,19 @@ module.exports = class JadeNgtemplates
     Wrap compiled template string with the angular templateCache
     directions.
     ###
-    urlGenerator = @findModuleConfig(path).url
+    module = @findModuleConfig(path)
+    urlGenerator = module.url
     url = urlGenerator(path)
     data = data.replace /'/g, "\\'"
     data = data.replace /\n/g, "\\n"
     if @optimize
-      "t.put('#{url}','#{data}');"
+      result = "t.put('#{url}','#{data}');"
     else
-      "\n  $templateCache.put('#{url}', '#{data}');"
+      result = "\n  $templateCache.put('#{url}', '#{data}');"
+    unless module.moduleWrapInner
+      return result
+    return @wrapWithModule result, module
+
 
   compile: (data, path, callback) ->
     # NOTE: Process only specified templates, by default brunch will
@@ -123,5 +128,6 @@ module.exports = class JadeNgtemplates
       continue unless module?
 
       data = fs.readFileSync generated.path, encoding: "utf8"
-      data = @wrapWithModule data, module
+      unless module.moduleWrapInner
+        data = @wrapWithModule data, module
       fs.writeFileSync generated.path, data
