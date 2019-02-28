@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Kagami/jade-ngtemplates-brunch",
   "dependencies": {
     "jade": "^1.5.0",
-    "html-minifier": "^0.6.6",
+    "html-minifier": "2.1.2",
     "lodash": "~2.4.1"
   },
   "devDependencies": {
