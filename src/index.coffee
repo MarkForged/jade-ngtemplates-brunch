@@ -36,7 +36,7 @@ module.exports = class JadeNgtemplates
     jadeConfig = _.extend({}, pluginConfig?.jade)
     @jadeLocals = jadeConfig.locals
     delete jadeConfig.locals
-    @jadeOptions = _.extend(jadeConfig, @DEFAULT_JADE_OPTIONS)
+    @jadeOptions = _.defaults(jadeConfig, @DEFAULT_JADE_OPTIONS)
     if @optimize
       # We don't want redundant whitespaces for product version, right?
       @jadeOptions.pretty = false
@@ -50,7 +50,7 @@ module.exports = class JadeNgtemplates
         @htmlminOptions = _.extend({}, @DEFAULT_HTMLMIN_OPTIONS)
       else if _.isObject(htmlminConfig)
         @htmlmin = true
-        @htmlminOptions = _.extend({}, htmlminConfig)
+        @htmlminOptions = _.defaults(htmlminConfig, @DEFAULT_HTMLMIN_OPTIONS)
 
   findModuleConfig: (path) ->
     ###
